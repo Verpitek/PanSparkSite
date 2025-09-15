@@ -8,13 +8,93 @@
     
     import CodeMirror from "svelte-codemirror-editor";
       
-    let value = `SET 10 >> num1 // the SET operator allows setting a value to a variable
-SET 0 >> counter
+    let value = `// ===== VARIABLE OPERATIONS =====
+SET 42 >> answer
+SET 100 >> initialValue
+SET initialValue >> copiedValue
 
-POINT loop // this defines a jump point to a specific location
-  MATH counter + 1 >> counter
-  IF counter < num1 >> loop // ifs allow a logical operation that if succeeds, jumps to a designated POINT
-  PRINT counter // PRINT allows the printing of variables or values`
+// ===== MATH OPERATIONS =====
+MATH initialValue + 8 >> addResult
+MATH initialValue - 15 >> subResult
+MATH initialValue * 2 >> mulResult
+MATH initialValue / 4 >> divResult
+MATH initialValue % 3 >> modResult
+MATH 2 ** 8 >> expResult
+MATH 25 sqrt >> sqrtResult
+MATH 100 log >> logResult
+MATH 10 rand >> randResult
+MATH 7.8 floor >> floorResult
+MATH 7.2 ceil >> ceilResult
+MATH 3.14159 sin >> sinResult
+
+// ===== PRINT OPERATIONS =====
+PRINT answer
+PRINT addResult
+PRINT subResult
+PRINT mulResult
+PRINT divResult
+PRINT modResult
+PRINT expResult
+PRINT sqrtResult
+PRINT logResult
+PRINT randResult
+PRINT floorResult
+PRINT ceilResult
+PRINT sinResult
+
+// ===== CONTROL FLOW =====
+SET 0 >> counter
+POINT loop_start
+MATH counter + 1 >> counter
+PRINT counter
+IF counter < 5 >> loop_start
+
+// ===== CONDITIONAL JUMPS =====
+SET 10 >> x
+SET 15 >> y
+
+IF x > y >> greater
+IF x < y >> less
+IF x == y >> equal
+JUMP comparisons_done
+
+POINT greater
+PRINT 9001
+JUMP comparisons_done
+
+POINT less
+PRINT 9000
+JUMP comparisons_done
+
+POINT equal
+PRINT 9002
+
+POINT comparisons_done
+
+// ===== MEMORY OPERATIONS =====
+MEMDUMP
+MEMVIPE
+MEMDUMP
+
+// ===== FUNCTION SIMULATION =====
+SET 5 >> factorial_input
+SET 1 >> factorial_result
+SET 1 >> factorial_counter
+
+POINT factorial_loop
+MATH factorial_result * factorial_counter >> factorial_result
+MATH factorial_counter + 1 >> factorial_counter
+IF factorial_counter <= factorial_input >> factorial_loop
+
+PRINT factorial_result
+
+// ===== RETURN EXAMPLE =====
+SET 42 >> returnValue
+RETURN returnValue
+
+// ===== END (unreachable due to return) =====
+END
+PRINT 999999 // This won't execute`
     
       import { EditorView } from "@codemirror/view";
       import { HighlightStyle, syntaxHighlighting, StreamLanguage } from "@codemirror/language";
