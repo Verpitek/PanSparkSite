@@ -11,6 +11,9 @@
       
       let dots = 1;
       const maxDots = 4;
+      setTimeout(() => {
+              document.querySelector('.container').style.opacity = 1;
+          }, 200);
     
       function animateBoot() {
         let dotString = ".".repeat(dots);
