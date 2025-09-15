@@ -39,7 +39,7 @@
     });
 </script>
 
-<div class="container">
+<div class="container boot-screen">
     <h1 class="booting"></h1>
     <h2 class="extra"></h2>
     <p>You will soon be redirected</p>
