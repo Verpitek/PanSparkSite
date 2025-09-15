@@ -10,7 +10,10 @@ body {
   color: #ffb000;
   font-family: "Geo";
   font-size: 20px;
-  animation: crtBloom 2s ease-in-out infinite alternate;
+}
+
+.boot-screen {
+    animation: crtBloom 0.5s ease-in-out infinite alternate;
 }
 
 body::after {
@@ -33,7 +36,6 @@ body::after {
 .output-textarea {
   background-color: rgba(0, 0, 0, 0);
   color: #ffd57a;
-  border-top: ;
   width: 100%;
   height: 30vh;
   border: none;

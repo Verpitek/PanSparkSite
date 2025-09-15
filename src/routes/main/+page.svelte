@@ -244,8 +244,8 @@ PRINT 999999 // This won't execute`
     });
 </script>
 
+<div class="boot-screen"></div>
 <div class="container">
-    <div class="boot-screen"></div>
     <button on:click={runCode} class="editor-button">RUN</button>
     <button class="editor-button" on:click={resetCode}>RESET OUTPUT</button>
     <CodeMirror 
