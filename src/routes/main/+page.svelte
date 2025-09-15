@@ -248,6 +248,7 @@ PRINT 999999 // This won't execute`
 <div class="container">
     <button on:click={runCode} class="editor-button">RUN</button>
     <button class="editor-button" on:click={resetCode}>RESET OUTPUT</button>
+    <div style="max-height: 50vh;">
     <CodeMirror 
           bind:value 
           extensions={customExtensions}
@@ -270,8 +271,9 @@ PRINT 999999 // This won't execute`
             }
           }}
         />
-    <div class="output">
+    </div>
+    <div class="output" style="max-height: 40vh;">
         <p class="output-stats">{outputStats}</p>
-        <textarea class="output-textarea" readonly bind:value={outputContent}></textarea>
+        <textarea class="output-textarea">{outputContent}</textarea>
     </div>
 </div>

@@ -41,11 +41,10 @@ body::after {
 .output-textarea {
   background-color: rgba(0, 0, 0, 0);
   color: #ffd57a;
-  width: 100%;
   height: 30vh;
+  width: 100%;
   border: none;
   outline: none;
-  margin-top: 10px;
 }
 
 .editor-button {
@@ -70,7 +69,7 @@ body::after {
 }
 
 .cm-editor {
-    min-height: 40vh;
+    max-height: 40vh;
 }
 
 .cm-scroller {
