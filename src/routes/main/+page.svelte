@@ -75,7 +75,6 @@ POINT comparisons_done
 // ===== MEMORY OPERATIONS =====
 MEMDUMP
 MEMVIPE
-MEMDUMP
 
 // ===== FUNCTION SIMULATION =====
 SET 5 >> factorial_input
