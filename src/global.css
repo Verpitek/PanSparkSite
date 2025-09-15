@@ -16,6 +16,11 @@ body {
     animation: crtBloom 0.5s ease-in-out infinite alternate;
 }
 
+.container {
+  opacity: 0;
+  transition: opacity 1s ease-in; /* This is the key part for the smooth effect */
+}
+
 body::after {
   content: '';
   position: fixed;

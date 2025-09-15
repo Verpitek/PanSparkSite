@@ -209,13 +209,8 @@ PRINT 999999 // This won't execute`
     onMount(() => {
                 const bootScreen = document.getElementsByClassName('boot-screen')[0];
                 const lines = [
-                    'NetSpace Operating System - v1.34',
+                  'PanSpark v1.1 loaded',
                     'Developed by Verpitek',
-                    '',
-                    '',
-                    'Loading PanSpark...',
-                    'PanSpark v1.0 loaded',
-                    '',
                     '',
                     '>'
                     
@@ -238,12 +233,17 @@ PRINT 999999 // This won't execute`
                         }
                     }
                 }
-    
+                
+                setTimeout(() => {
+                        document.querySelector('.container').style.opacity = 1;
+                    }, 200);
+                
                 typeWriter();
               
     });
 </script>
 
+<div><img src="/src/lib/assets/favicon.png" style="max-height: 200px;" alt="panspark logo"></div>
 <div class="boot-screen"></div>
 <div class="container">
     <button on:click={runCode} class="editor-button">RUN</button>
