@@ -1,5 +1,6 @@
 <script>
     import "../../global.css";
+    import favicon from '$lib/assets/favicon.png';
     import { onMount } from 'svelte';
     import { run, compile, resetVM, buffer } from '../../lib/panspark';
     let editorContent = '';
@@ -243,7 +244,7 @@ PRINT 999999 // This won't execute`
     });
 </script>
 
-<div><img src="/src/lib/assets/favicon.png" style="max-height: 200px;" alt="panspark logo"></div>
+<div><img src="{favicon}" style="max-height: 200px;" alt="panspark logo"></div>
 <div class="boot-screen"></div>
 <div class="container">
     <button on:click={runCode} class="editor-button">RUN</button>
