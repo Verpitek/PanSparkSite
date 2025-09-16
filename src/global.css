@@ -68,9 +68,6 @@ body::after {
   border: none;
 }
 
-.cm-editor {
-    max-height: 70vh;
-}
 
 .cm-scroller {
     overflow: auto;

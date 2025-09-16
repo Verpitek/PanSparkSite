@@ -5,7 +5,7 @@
     import { run, compile, resetVM, buffer } from '../../lib/panspark';
     let editorContent = '';
     let outputContent = '';
-    let outputStats = '';
+    let outputStats = 'Compile Time: None Runtime: None';
     
     import CodeMirror from "svelte-codemirror-editor";
       
@@ -249,9 +249,7 @@ PRINT 999999 // This won't execute`
 <div><img src="{favicon}" style="max-height: 200px;" alt="panspark logo"></div>
 <div class="boot-screen"></div>
 <div class="container">
-    <button on:click={runCode} class="editor-button">RUN</button>
-    <button class="editor-button" on:click={resetCode}>RESET OUTPUT</button>
-    <div style="max-height: 50vh;">
+    <div>
     <CodeMirror 
           bind:value 
           extensions={customExtensions}
@@ -275,8 +273,11 @@ PRINT 999999 // This won't execute`
           }}
         />
     </div>
-    <div class="output" style="max-height: 15vh; width: 100%; background-color: rgba(0, 0, 0, 0.8); overflow-y: auto; overflow-x: hidden; position: fixed; bottom: 0; border-radius: 5px;">
-        <p class="output-stats">{outputStats}</p>
+    <button on:click={runCode} class="editor-button">RUN</button>
+    <button class="editor-button" on:click={resetCode}>RESET OUTPUT</button>
+    <p>Output</p>
+    <p class="output-stats">{outputStats}</p>
+    <div class="output" style="border: solid 1px #ffd700; border-radius: 5px;">
         <textarea class="output-textarea">{outputContent}</textarea>
     </div>
 </div>
