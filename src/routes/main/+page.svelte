@@ -45,10 +45,11 @@ PRINT sinResult
 
 // ===== CONTROL FLOW =====
 SET 0 >> counter
-POINT loop_start
-MATH counter + 1 >> counter
-PRINT counter
-IF counter < 5 >> loop_start
+PROC loop_start
+  MATH counter + 1 >> counter
+  PRINT counter
+  IF counter < 5 >> loop_start
+ENDPROC
 
 // ===== CONDITIONAL JUMPS =====
 SET 10 >> x
@@ -59,32 +60,34 @@ IF x < y >> less
 IF x == y >> equal
 JUMP comparisons_done
 
-POINT greater
-PRINT 9001
+PROC greater
+  PRINT 9001
+ENDPROC
 JUMP comparisons_done
 
-POINT less
-PRINT 9000
+PROC less
+  PRINT 9000
+ENDPROC
 JUMP comparisons_done
 
-POINT equal
-PRINT 9002
+PROC equal
+  PRINT 9002
+ENDPROC
 
-POINT comparisons_done
+PROC comparisons_done
+ENDPROC
 
-// ===== MEMORY OPERATIONS =====
-MEMDUMP
-MEMVIPE
-
-// ===== FUNCTION SIMULATION =====
+// ===== PROCEDURES =====
+// they elevate the memory layer and act as a registered jump point
 SET 5 >> factorial_input
 SET 1 >> factorial_result
 SET 1 >> factorial_counter
 
-POINT factorial_loop
-MATH factorial_result * factorial_counter >> factorial_result
-MATH factorial_counter + 1 >> factorial_counter
-IF factorial_counter <= factorial_input >> factorial_loop
+PROC factorial_loop
+  MATH factorial_result * factorial_counter >> factorial_result
+  MATH factorial_counter + 1 >> factorial_counter
+  IF factorial_counter <= factorial_input >> factorial_loop
+ENDPROC
 
 PRINT factorial_result
 
@@ -103,7 +106,7 @@ PRINT 999999 // This won't execute`
       const keywords = new Set([
           // Opcodes
           "SET", "MATH", "PRINT", "IF", "JUMP", "POINT",
-          "END", "MEMVIPE", "MEMDUMP", "RETURN",
+          "END", "MEMWIPE", "MEMDUMP", "RETURN", "PROC", "ENDPROC",
           // Math functions
           "sqrt", "log", "rand", "floor", "ceil", "sin"
       ]);
@@ -272,7 +275,7 @@ PRINT 999999 // This won't execute`
           }}
         />
     </div>
-    <div class="output" style="max-height: 40vh;">
+    <div class="output" style="max-height: 15vh; width: 100%; background-color: rgba(0, 0, 0, 0.8); overflow-y: auto; overflow-x: hidden; position: fixed; bottom: 0; border-radius: 5px;">
         <p class="output-stats">{outputStats}</p>
         <textarea class="output-textarea">{outputContent}</textarea>
     </div>
