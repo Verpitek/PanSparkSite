@@ -9,7 +9,12 @@ body {
   background: #121010;
   color: #ffb000;
   font-family: "Geo";
-  font-size: 20px;
+  font-size: 16pt;
+}
+
+a {
+  color: #e570ff;
+  text-decoration: none;
 }
 
 .boot-screen {
@@ -68,6 +73,9 @@ body::after {
   border: none;
 }
 
+.cm-editor {
+    font-size: 20px;
+}
 
 .cm-scroller {
     overflow: auto;

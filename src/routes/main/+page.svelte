@@ -20,6 +20,8 @@ MATH initialValue - 15 >> subResult
 MATH initialValue * 2 >> mulResult
 MATH initialValue / 4 >> divResult
 MATH initialValue % 3 >> modResult
+MATH initialValue min 59 >> minResult
+MATH initialValue max 59 >> maxResult
 MATH 2 ** 8 >> expResult
 MATH 25 sqrt >> sqrtResult
 MATH 100 log >> logResult
@@ -27,8 +29,15 @@ MATH 10 rand >> randResult
 MATH 7.8 floor >> floorResult
 MATH 7.2 ceil >> ceilResult
 MATH 3.14159 sin >> sinResult
+MATH 3.14159 cos >> cosResult
+MATH 3.14159 tan >> tanResult
+MATH -3443 abs >> absResult
+MATH 23.43 round >> roundResult
+MATH 3.9 log10 >> log10Result
+MATH 32.21 exp >> expXResult
 
 // ===== PRINT OPERATIONS =====
+ECHO "Math Operation results"
 PRINT answer
 PRINT addResult
 PRINT subResult
@@ -45,13 +54,13 @@ PRINT sinResult
 
 // ===== CONTROL FLOW =====
 SET 0 >> counter
-PROC loop_start
-  MATH counter + 1 >> counter
-  PRINT counter
-  IF counter < 5 >> loop_start
-ENDPROC
+POINT loop_start
+MATH counter + 1 >> counter
+PRINT counter
+IF counter < 5 >> loop_start
 
 // ===== CONDITIONAL JUMPS =====
+ECHO "Conditional Jumps"
 SET 10 >> x
 SET 15 >> y
 
@@ -60,44 +69,45 @@ IF x < y >> less
 IF x == y >> equal
 JUMP comparisons_done
 
-PROC greater
-  PRINT 9001
-ENDPROC
+POINT greater
+PRINT 9001
 JUMP comparisons_done
 
-PROC less
-  PRINT 9000
-ENDPROC
+POINT less
+PRINT 9000
 JUMP comparisons_done
 
-PROC equal
-  PRINT 9002
-ENDPROC
+POINT equal
+PRINT 9002
 
-PROC comparisons_done
-ENDPROC
+POINT comparisons_done
 
-// ===== PROCEDURES =====
-// they elevate the memory layer and act as a registered jump point
-SET 5 >> factorial_input
-SET 1 >> factorial_result
-SET 1 >> factorial_counter
+// ===== PROCEDURES (PROCs) =====
+// Define a PROC to calculate factorial
+ECHO "Procedures"
+PROC factorial (n) {
+    SET 1 >> result
+    POINT factorial_loop
+    IF n == 0 >> end_factorial_loop
+    MATH result * n >> result
+    MATH n - 1 >> n
+    JUMP factorial_loop
+    POINT end_factorial_loop
+    RETURN result
+}
 
-PROC factorial_loop
-  MATH factorial_result * factorial_counter >> factorial_result
-  MATH factorial_counter + 1 >> factorial_counter
-  IF factorial_counter <= factorial_input >> factorial_loop
-ENDPROC
+// Call the 'factorial' PROC and store the result
+// The arguments (e.g., 5) are passed to the PROC.
+// The result is stored in the 'factorial_output' variable.
+CALL factorial (5) >> factorial_output
 
-PRINT factorial_result
+// Print the final result
+PRINT factorial_output
+ECHO "program execution complete!"
 
-// ===== RETURN EXAMPLE =====
-SET 42 >> returnValue
-RETURN returnValue
 
-// ===== END (unreachable due to return) =====
-END
-PRINT 999999 // This won't execute`
+// ===== END PROGRAM EXECUTION =====
+END`;
     
       import { EditorView } from "@codemirror/view";
       import { HighlightStyle, syntaxHighlighting, StreamLanguage } from "@codemirror/language";
@@ -106,9 +116,9 @@ PRINT 999999 // This won't execute`
       const keywords = new Set([
           // Opcodes
           "SET", "MATH", "PRINT", "IF", "JUMP", "POINT",
-          "END", "MEMWIPE", "MEMDUMP", "RETURN", "PROC", "ENDPROC",
+          "END", "RETURN", "PROC", "CALL", "ECHO",
           // Math functions
-          "sqrt", "log", "rand", "floor", "ceil", "sin"
+          "sqrt", "log", "rand", "floor", "ceil", "sin", "cos", "tan", "abs", "round", "log10", "exp"
       ]);
       
       // Define operators
@@ -133,6 +143,15 @@ PRINT 999999 // This won't execute`
           // Operators
           if (stream.match(operators)) {
             return "operator";
+          }
+          
+          if (stream.peek() == '"') {
+            stream.next();
+            while (stream.peek() != null && stream.peek() != '"') {
+              stream.next();
+            }
+            stream.next();
+            return "string";
           }
       
           // Keywords, Variables, and Labels
@@ -160,6 +179,7 @@ PRINT 999999 // This won't execute`
           variableName: tags.variableName, // Also used for labels
           operator: tags.operator,
           lineComment: tags.lineComment,
+          string: tags.string,
         },
       });
 
@@ -196,7 +216,9 @@ PRINT 999999 // This won't execute`
         const compiledCode = compile(code);
         const compileTime = performance.now() - compileStart;
         const runStart = performance.now();
-        run(compiledCode);
+        let program = run(compiledCode);
+        while (program.next().done === false) {
+        }
         const runTime = performance.now() - runStart;
         outputStats = `Compile Time: ${compileTime}ms\nRuntime: ${runTime}ms`;
         for (let i = 0; i < buffer.length; i++) {
@@ -212,11 +234,20 @@ PRINT 999999 // This won't execute`
     onMount(() => {
                 const bootScreen = document.getElementsByClassName('boot-screen')[0];
                 const lines = [
-                  'PanSpark v1.1 loaded',
+                  'PanSpark v1.2 loaded',
                     'Developed by Verpitek',
                     '',
+                    'A tiny scripting language for game scripting',
+                    'Features include such silly things as:',
+                    '- A tick-based interpreter',
+                    '- Very simple syntax',
+                    '- Fast enough to not melt your CPU',
+                    '- Runs on vanilla JavaScript',
+                    '',
+                    'Anyways here is an editor below showcasing most of the language features',
+                    'You can go to the bottom of the site to run the code',
+                    '',
                     '>'
-                    
                 ];
                 let lineIndex = 0;
                 let charIndex = 0;
@@ -280,4 +311,6 @@ PRINT 999999 // This won't execute`
     <div class="output" style="border: solid 1px #ffd700; border-radius: 5px;">
         <textarea class="output-textarea">{outputContent}</textarea>
     </div>
+    <div><a href="https://github.com/Verpitek/PanSpark">PanSpark GitHub</a></div>
+    <div><a href="https://discord.gg/fyNQNrr7dC">Verpitek Discord</a></div>
 </div>
