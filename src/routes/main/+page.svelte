@@ -235,16 +235,8 @@ END`;
                 const bootScreen = document.getElementsByClassName('boot-screen')[0];
                 const lines = [
                   'PanSpark v1.2 loaded',
-                    'Developed by Verpitek',
-                    '',
+                  'Developed by Verpitek',
                     'A tiny scripting language for game scripting',
-                    'Features include such silly things as:',
-                    '- A tick-based interpreter',
-                    '- Very simple syntax',
-                    '- Fast enough to not melt your CPU',
-                    '- Runs on vanilla JavaScript',
-                    '',
-                    'Anyways here is an editor below showcasing most of the language features',
                     'You can go to the bottom of the site to run the code',
                     '',
                     '>'
