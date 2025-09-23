@@ -4,7 +4,7 @@
     
     onMount(() => {
       setTimeout(() => {
-        window.location.href = "/main";
+        window.location.href = "/editor";
       }, 2000);
       const bootingElement = document.getElementsByClassName("booting")[0];
       const extraElement = document.getElementsByClassName("extra")[0];

@@ -206,7 +206,7 @@ POINT are_equal
 ECHO "=== Procedures ==="
 
 // Define a PROC to calculate factorial
-PROC factorial (n)
+PROC factorial (n) {
     SET 1 >> result
     POINT factorial_loop
     IF n <= 1 >> end_factorial_loop
@@ -218,7 +218,7 @@ PROC factorial (n)
 }
 
 // Define a PROC to calculate Fibonacci (iterative to avoid stack overflow)
-PROC fibonacci (n)
+PROC fibonacci (n) {
     IF n <= 1 >> fib_base_case
     
     SET 0 >> a
@@ -241,7 +241,7 @@ PROC fibonacci (n)
 }
 
 // Define a PROC to find maximum of two numbers
-PROC max_two (a, b)
+PROC max_two (a, b) {
     IF a > b >> a_greater
     RETURN b
     POINT a_greater
@@ -284,7 +284,7 @@ END`;
           // Opcodes
           "SET", "MATH", "PRINT", "IF", "JUMP", "POINT",
           "END", "RETURN", "PROC", "CALL", "ECHO", "WAIT",
-          "INC", "DEC", "FREE", "NOP", "MEMDUMP", "TICK", "IMPORT",
+          "INC", "DEC", "FREE", "NOP", "MEMDUMP", "TICK", "IMPORT", "LIST_CREATE", "LIST_GET", "LIST_SET", "LIST_PUSH", "LIST_DUMP", "LIST_LEN", "LIST_SORT",
           // Math functions
           "sqrt", "log", "rand", "floor", "ceil", "sin", "cos", "tan", "abs", "round", "log10", "exp"
       ]);
