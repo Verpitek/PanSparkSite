@@ -15,13 +15,45 @@
     
     import CodeMirror from "svelte-codemirror-editor";
     
-    let value = `SET 10 >> num1
-SET 20 >> num2
-SET result
+    let value = `// Welcome to PanSpark!
+ECHO "=== PanSpark Demo Start ==="
 
-// oh hey a comment :3
-MATH num1 + num2 >> result
-PRINT result`;
+// Basic math
+SET 5 >> a
+SET 10 >> b
+SET 34 >> c
+MATH a + b + c >> sum
+ECHO "Sum of a + b + c:"
+PRINT sum
+
+// Procedure example
+PROC square (x)
+  MATH x * x >> result
+  RETURN result
+ENDPROC
+
+CALL square (sum) >> squared
+ECHO "Squared result:"
+PRINT squared
+
+// FOR loop example
+ECHO "Counting from 0 to 4:"
+FOR i 0 5
+  PRINT i
+ENDFOR
+
+// List example
+LIST_CREATE nums
+LIST_PUSH 3 >> nums
+LIST_PUSH 1 >> nums
+LIST_PUSH 2 >> nums
+LIST_SORT nums min
+ECHO "Sorted list:"
+PRINT nums
+
+ECHO "=== Demo Complete ==="
+END
+`;
     
     import { EditorView } from "@codemirror/view";
     import { HighlightStyle, syntaxHighlighting, StreamLanguage } from "@codemirror/language";
@@ -33,7 +65,7 @@ PRINT result`;
         // Core Opcodes
         "SET", "MATH", "PRINT", "IF", "JUMP", "POINT",
         "END", "RETURN", "PROC", "CALL", "ECHO", "WAIT",
-        "INC", "DEC", "FREE", "NOP", "MEMDUMP", "TICK", "IMPORT",
+        "INC", "DEC", "FREE", "NOP", "MEMDUMP", "TICK", "IMPORT", "ENDPROC", "ENDFOR", "FOR", "BREAK", "CONTINUE",
         // List Operations
         "LIST_CREATE", "LIST_GET", "LIST_SET", "LIST_PUSH",
         "LIST_DUMP", "LIST_LEN", "LIST_SORT",
