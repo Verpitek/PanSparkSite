@@ -37,7 +37,7 @@ ECHO "Squared result:"
 PRINT squared
 
 // FOR loop example
-ECHO "Counting from 0 to 4:"
+ECHO "Counting from 0 to 5:"
 FOR i 0 5
   PRINT i
 ENDFOR
